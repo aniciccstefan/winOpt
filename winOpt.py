@@ -11,18 +11,6 @@ def is_admin():
     except:
         return False
 
-def relaunch_in_new_console():
-    script = os.path.abspath(sys.argv[0])
-    args = " ".join(f'"{a}"' for a in sys.argv[1:])
-    # "start" otvara NOVI cmd prozor; /k drzi prozor otvoren posle zavrsetka skripte
-    cmd = f'start "Windows Optimizator" cmd /k ""{sys.executable}" "{script}" {args}""'
-    subprocess.Popen(cmd, shell=True)
-    sys.exit()
-
-
-if os.environ.get("WIN_OPT_REAL_CONSOLE") != "1":
-    os.environ["WIN_OPT_REAL_CONSOLE"] = "1"
-    relaunch_in_new_console()
 
 if not is_admin():
     print("Running as Administrator...")
@@ -37,26 +25,18 @@ power_saver_guid = "a1841308-3541-4fab-bc81-f71556f20b4a"
 ultimate_guid = "e9a42b02-d5df-448d-aa00-03f14749eb61"
 
 greets = """
-Windows Optimizator v1.0
+winOpt v1.0
 Project made by Stefan Aničić aka aniciccstefan
 This program may not be compatible with all Windows computers! (JUST A PROTOTYPE, DO AT YOUR OWN RISK)
 """
 
 ascii_banner = """
-            ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ██╗    ██╗███████╗               
-            ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗██║    ██║██╔════╝               
-            ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║███████╗               
-            ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║╚════██║               
-            ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝╚███╔███╔╝███████║               
-             ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚══════╝               
-                                                                                     
- ██████╗ ██████╗ ████████╗██╗███╗   ███╗██╗███████╗ █████╗ ████████╗ ██████╗ ██████╗ 
-██╔═══██╗██╔══██╗╚══██╔══╝██║████╗ ████║██║╚══███╔╝██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗
-██║   ██║██████╔╝   ██║   ██║██╔████╔██║██║  ███╔╝ ███████║   ██║   ██║   ██║██████╔╝
-██║   ██║██╔═══╝    ██║   ██║██║╚██╔╝██║██║ ███╔╝  ██╔══██║   ██║   ██║   ██║██╔══██╗
-╚██████╔╝██║        ██║   ██║██║ ╚═╝ ██║██║███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
- ╚═════╝ ╚═╝        ╚═╝   ╚═╝╚═╝     ╚═╝╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
-                                                                                     """
+██╗    ██╗██╗███╗   ██╗ ██████╗ ██████╗ ████████╗
+██║    ██║██║████╗  ██║██╔═══██╗██╔══██╗╚══██╔══╝
+██║ █╗ ██║██║██╔██╗ ██║██║   ██║██████╔╝   ██║   
+██║███╗██║██║██║╚██╗██║██║   ██║██╔═══╝    ██║   
+╚███╔███╔╝██║██║ ╚████║╚██████╔╝██║        ██║   
+ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝        ╚═╝   """
 
 def main_menu():
     while True:
