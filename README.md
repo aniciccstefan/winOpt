@@ -1,4 +1,4 @@
-# winOpt - A fast and easy-to-use Windows Optimizator made for CLI use
+# winOpt - A fast and easy-to-use CLI Windows Optimizator
 Windows Optimizator v1.0  
 
 Project made by Stefan Aničić aka aniciccstefan  
