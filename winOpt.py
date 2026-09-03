@@ -90,7 +90,8 @@ Choose a power plan:
 [1] Power Saver
 [2] Balanced
 [3] High Performance
-[4] Ultimate Performance""")
+[4] Ultimate Performance
+[0] Exit""")
     print(" ")
     power_plan_input = input("Enter an option: ").strip().lower()
     if(power_plan_input == "1"):
