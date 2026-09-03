@@ -1,9 +1,3 @@
-# winOpt - A fast and easy-to-use CLI Windows Optimizator
-Windows Optimizator v1.0  
+# winOpt
 
-Project made by Stefan Aničić aka aniciccstefan  
-
-This program may not be compatible with all Windows computers! (JUST A PROTOTYPE, DO AT YOUR OWN RISK)
-
-
-The release file was directly made from winOpt.py file and is it's final release.
+> A lightweight Windows optimization and maintenance utility built with Python.
