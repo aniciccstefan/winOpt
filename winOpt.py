@@ -175,4 +175,18 @@ def clear_cache():
     print("Temporary folders successfully deleted.")
     input("Press Enter to return...")
 
+def app_selection(app_id):
+    app_selector = """
+Choose an app to install:
+[1] Google Chrome
+[2] Steam
+[3] OBS Studio
+[4] Discord
+[5] Visual Studio Code
+[6] Spotify
+"""
+    clear()
+    print(app_selector)
+    input("Enter an option: ").strip().lower()
+
 main_menu()
