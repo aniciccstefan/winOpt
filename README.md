@@ -51,3 +51,11 @@ git clone https://github.com/aniciccstefan/winOpt.git
 cd winOpt
 
 python winOpt.py
+
+
+## Author
+
+Developed and maintained by [aniciccstefan].
+
+
+© 2026 Stefan Aničić. All rights reserved.
