@@ -25,7 +25,7 @@ power_saver_guid = "a1841308-3541-4fab-bc81-f71556f20b4a"
 ultimate_guid = "e9a42b02-d5df-448d-aa00-03f14749eb61"
 
 greets = """
-winOpt v1.0
+winOpt v0.3.3-alpha1
 Project made by Stefan Aničić aka aniciccstefan
 This program may not be compatible with all Windows computers! (JUST A PROTOTYPE, DO AT YOUR OWN RISK)
 """
