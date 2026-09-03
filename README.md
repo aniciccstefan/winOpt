@@ -53,6 +53,20 @@ cd winOpt
 python winOpt.py
 
 
+## License
+
+winOpt is proprietary software.
+
+The source code is publicly available for inspection, but it is **not open-source software**.
+
+You may use and redistribute the original, unmodified version of winOpt according to the terms of the [winOpt Personal Use License](LICENSE.md).
+
+Modification and redistribution of modified or derivative versions are not permitted without explicit written permission from the copyright holder.
+
+**Copyright © 2026 Stefan Aničić. All rights reserved.**
+
+
+
 ## Author
 
 Developed and maintained by [aniciccstefan].
