@@ -3,7 +3,7 @@
 > A lightweight Windows optimization and maintenance utility built with Python.
 
 
-![windows](https://img.shields.io/badge/OS-Windows-blue) ![release](https://img.shields.io/badge/Pre--release-v0.3.3--alpha1-yellow) ![license](https://img.shields.io/badge/License-winOpt_Personal_Use_License-red) ![version.py](https://img.shields.io/badge/python-3.14.0-blue)
+![windows](https://img.shields.io/badge/OS-Windows-blue) ![release](https://img.shields.io/badge/Pre--release-v0.4.0--alpha.1-yellow) ![license](https://img.shields.io/badge/License-winOpt_Personal_Use_License-red) ![version.py](https://img.shields.io/badge/python-3.14.0-blue)
 
 
 winOpt is a Windows-focused command-line utility designed to provide

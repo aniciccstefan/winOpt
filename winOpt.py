@@ -12,6 +12,7 @@ def is_admin():
         return False
 
 
+
 if not is_admin():
     print("Running as Administrator...")
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
@@ -24,8 +25,27 @@ high_guid = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
 power_saver_guid = "a1841308-3541-4fab-bc81-f71556f20b4a"
 ultimate_guid = "e9a42b02-d5df-448d-aa00-03f14749eb61"
 
+apps = {
+    "1": ("Google Chrome", "Google.Chrome"),
+    "2": ("Steam", "Valve.Steam"),
+    "3": ("OBS Studio", "OBSProject.OBSStudio"),
+    "4": ("Discord", "Discord.Discord"),
+    "5": ("Visual Studio Code", "Microsoft.VisualStudioCode"),
+    "6": ("Spotify", "Spotify.Spotify"),
+    "7": ("VLC Player", "VideoLAN.VLC"),
+    "8": ("InkScape", "Inkscape.Inkscape"),
+    "9": ("Audacity", "Audacity.Audacity"),
+    "10": ("uTorrent", "BitTorrent.uTorrent"),
+    "11": ("Git", "Git.Git"),
+    "12": ("GIMP", "GIMP.GIMP"),
+    "13": ("Krita", "Krita.Krita"),
+    "14": ("WhatsApp", "WhatsApp.WhatsApp"),
+    "15": ("7Zip", "7zip.7zip")
+}
+
+
 greets = """
-winOpt v0.3.3-alpha.1
+winOpt v0.4.0-alpha.1
 Project made by Stefan Aničić aka aniciccstefan
 This program may not be compatible with all Windows computers! (JUST A PROTOTYPE, DO AT YOUR OWN RISK)
 """
@@ -59,6 +79,9 @@ Select an option:
             elif main_menu_input == "2":
                 clear()
                 disk_defrag()
+            elif main_menu_input == "4":
+                clear()
+                app_selection()
             elif main_menu_input == "5":
                 clear()
                 clear_cache()
@@ -176,7 +199,25 @@ def clear_cache():
     print("Temporary folders successfully deleted.")
     input("Press Enter to return...")
 
-def app_selection(app_id):
+def install_program(package_id):
+    print(f"Starting installation for {package_id}...")
+    
+    # Construct the winget command
+    # -e matches the exact ID, --silent handles background installation
+    command = ["winget", "install", "-e", "--id", package_id, "--silent", "--accept-source-agreements", "--accept-package-agreements"]
+    
+    try:
+        # Execute the command
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        print(f"Successfully installed {package_id}!")
+        input("Press ENTER to get back...")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to install {package_id}.")
+        print(f"Error output:\n{e.stderr}")
+        input("Press ENTER to get back...")
+
+
+def app_selection():
     app_selector = """
 Choose an app to install:
 [1] Google Chrome
@@ -185,9 +226,30 @@ Choose an app to install:
 [4] Discord
 [5] Visual Studio Code
 [6] Spotify
+[7] VLC Player
+[8] InkScape
+[9] Audacity
+[10] uTorrent
+[11] Git
+[12] GIMP
+[13] Krita
+[14] WhatsApp
+[15] 7Zip
+[0] Exit
 """
     clear()
     print(app_selector)
-    input("Enter an option: ").strip().lower()
+    app_selected = input("Enter an option: ").strip().lower()
+    if app_selected == "0":
+        input("Press ENTER to go back...")
+
+    if app_selected in apps:
+        app_name, package_id = apps[app_selected]
+        print(f"Selected {app_name}")
+        install_program(package_id)
+    else:
+        print("Invalid option.")
+        print("Press ENTER to return...")
+    
 
 main_menu()
