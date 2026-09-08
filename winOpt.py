@@ -202,18 +202,25 @@ def clear_cache():
 def install_program(package_id):
     print(f"Starting installation for {package_id}...")
     
-    # Construct the winget command
-    # -e matches the exact ID, --silent handles background installation
     command = ["winget", "install", "-e", "--id", package_id, "--silent", "--accept-source-agreements", "--accept-package-agreements"]
     
     try:
-        # Execute the command
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(f"Successfully installed {package_id}!")
+        if result.stdout:
+            print(f"\nOutput: \n{result.stdout}")
+        if result.stderr:
+            print(f"\nWarnings: \n{result.stderr}")
+
         input("Press ENTER to get back...")
     except subprocess.CalledProcessError as e:
         print(f"Failed to install {package_id}.")
-        print(f"Error output:\n{e.stderr}")
+        print(f"\nReturn Code: \n{e.returncode}")
+        if e.stdout:
+            print(f"\nOutput: \n{e.stdout}")
+        if e.stderr:
+            print(f"\nError Output: \n{e.stderr}")
+
         input("Press ENTER to get back...")
 
 
