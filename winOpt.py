@@ -4,6 +4,7 @@ import sys
 import time
 import ctypes
 import shutil
+import platform
 
 def is_admin():
     try:
@@ -65,27 +66,31 @@ def main_menu():
             print(greets)
             print("""
 Select an option:
-[1] Change Power Plan
-[2] Disk defrag
-[3] Install Drivers (AT YOUR OWN RISK!!!)
-[4] Install programs
-[5] Clear cache
-[6] Exit""")
+[1] System Info
+[2] Change Power Plan
+[3] Disk defrag
+[4] Install Drivers (AT YOUR OWN RISK!!!)
+[5] Install programs
+[6] Clear cache
+[0] Exit""")
             print(" ")
             main_menu_input = input("Enter your choice: ").strip().lower()
             if main_menu_input == "1":
                 clear()
+                system_info()
+            if main_menu_input == "2":
+                clear()
                 power_plan()
-            elif main_menu_input == "2":
+            elif main_menu_input == "3":
                 clear()
                 disk_defrag()
-            elif main_menu_input == "4":
-                clear()
-                app_selection()
             elif main_menu_input == "5":
                 clear()
-                clear_cache()
+                app_selection()
             elif main_menu_input == "6":
+                clear()
+                clear_cache()
+            elif main_menu_input == "0":
                 break
             else:
                 print("Invalid option.")
@@ -106,6 +111,25 @@ def set_power_plan(guid, name):
     print(f"Power plan changed to {name}.")
     input("Press Enter to return...")
     clear()
+
+def system_info():
+    print("""
+=============================
+       SYSTEM INFORMATION
+=============================
+""")
+
+    print(f"OS:           {platform.system()} {platform.release()}")
+    print(f"Version:      {platform.version()}")
+    print(f"Architecture: {platform.machine()}")
+    print(f"Processor:    {platform.processor()}")
+    print(f"CPU Cores:    {os.cpu_count()}")
+    print(f"Computer:     {platform.node()}")
+
+    print("""
+=============================
+""")
+
 
 def power_plan():
     print("""
