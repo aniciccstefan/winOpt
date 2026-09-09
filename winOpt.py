@@ -5,6 +5,9 @@ import time
 import ctypes
 import shutil
 import platform
+import psutil
+from cpuinfo import get_cpu_info
+import wmi
 
 def is_admin():
     try:
@@ -78,7 +81,7 @@ Select an option:
             if main_menu_input == "1":
                 clear()
                 system_info()
-            if main_menu_input == "2":
+            elif main_menu_input == "2":
                 clear()
                 power_plan()
             elif main_menu_input == "3":
@@ -113,6 +116,29 @@ def set_power_plan(guid, name):
     clear()
 
 def system_info():
+
+    clear()
+    info = get_cpu_info()
+    cpu_model = info.get('brand_raw', 'Nepoznat CPU')
+
+    cores = psutil.cpu_count(logical=False)
+    threads = psutil.cpu_count(logical=True)
+
+    gpu_model = "Nepoznat GPU"
+    try:
+        w = wmi.WMI()
+        gpus = [gpu.Name for gpu in w.Win32_VideoController()]
+        if gpus:
+            gpu_model = ", ".join(gpus)
+    except Exception:
+        gpu_model = "Nije moguće učitati GPU"
+
+    ram = psutil.virtual_memory()
+    total_ram_raw = round(ram.total / (1024 ** 3))
+    total_ram = f"{total_ram_raw}.00"
+    used_ram = round(ram.used / (1024 ** 3), 2)
+    free_ram = round(ram.available / (1024 ** 3), 2)
+
     print("""
 =============================
        SYSTEM INFORMATION
@@ -122,13 +148,17 @@ def system_info():
     print(f"OS:           {platform.system()} {platform.release()}")
     print(f"Version:      {platform.version()}")
     print(f"Architecture: {platform.machine()}")
-    print(f"Processor:    {platform.processor()}")
-    print(f"CPU Cores:    {os.cpu_count()}")
+    print(f"Processor:    {cpu_model}")
+    print(f"CPU Cores:    {cores} Cores")
+    print(f"CPU Threads:  {threads} Threads")
+    print(f"GPU:          {gpu_model}")
+    print(f"RAM Memory:   {total_ram} GB total ({used_ram} GB used, {free_ram} GB free)")
     print(f"Computer:     {platform.node()}")
 
     print("""
 =============================
 """)
+    input("Press ENTER to go back...")
 
 
 def power_plan():
