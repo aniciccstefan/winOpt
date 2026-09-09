@@ -1,13 +1,12 @@
-import os
-import subprocess
+from system_info import system_info
+from clear import clear
+from power_plan import power_plan
+from clear_cache import clear_cache
+from disk_defrag import disk_defrag
+from install_program import app_selection
 import sys
 import time
 import ctypes
-import shutil
-import platform
-import psutil
-from cpuinfo import get_cpu_info
-import wmi
 
 def is_admin():
     try:
@@ -15,38 +14,12 @@ def is_admin():
     except:
         return False
 
-
-
 if not is_admin():
     print("Running as Administrator...")
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
     sys.exit()
 
 sys.stdout.reconfigure(encoding='utf-8')
-
-balanced_guid = "381b4222-f694-41f0-9685-ff5bb260df2e"
-high_guid = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
-power_saver_guid = "a1841308-3541-4fab-bc81-f71556f20b4a"
-ultimate_guid = "e9a42b02-d5df-448d-aa00-03f14749eb61"
-
-apps = {
-    "1": ("Google Chrome", "Google.Chrome"),
-    "2": ("Steam", "Valve.Steam"),
-    "3": ("OBS Studio", "OBSProject.OBSStudio"),
-    "4": ("Discord", "Discord.Discord"),
-    "5": ("Visual Studio Code", "Microsoft.VisualStudioCode"),
-    "6": ("Spotify", "Spotify.Spotify"),
-    "7": ("VLC Player", "VideoLAN.VLC"),
-    "8": ("InkScape", "Inkscape.Inkscape"),
-    "9": ("Audacity", "Audacity.Audacity"),
-    "10": ("uTorrent", "BitTorrent.uTorrent"),
-    "11": ("Git", "Git.Git"),
-    "12": ("GIMP", "GIMP.GIMP"),
-    "13": ("Krita", "Krita.Krita"),
-    "14": ("WhatsApp", "WhatsApp.WhatsApp"),
-    "15": ("7Zip", "7zip.7zip")
-}
-
 
 greets = """
 winOpt v0.4.0-alpha.1
@@ -98,219 +71,5 @@ Select an option:
             else:
                 print("Invalid option.")
                 time.sleep(3)
-
-def set_power_plan(guid, name):
-    try:
-        subprocess.run(["powercfg", "/setactive", guid], check=True)
-    except Exception as e:
-        print("[ERROR]:", e)
-        input("Press Enter to return... ")
-        clear()
-        return
-    print(" ")
-    print("Changing your power plan...")
-    time.sleep(2)
-    print("Done.")
-    print(f"Power plan changed to {name}.")
-    input("Press Enter to return...")
-    clear()
-
-def system_info():
-
-    clear()
-    info = get_cpu_info()
-    cpu_model = info.get('brand_raw', 'Nepoznat CPU')
-
-    cores = psutil.cpu_count(logical=False)
-    threads = psutil.cpu_count(logical=True)
-
-    gpu_model = "Nepoznat GPU"
-    try:
-        w = wmi.WMI()
-        gpus = [gpu.Name for gpu in w.Win32_VideoController()]
-        if gpus:
-            gpu_model = ", ".join(gpus)
-    except Exception:
-        gpu_model = "Nije moguće učitati GPU"
-
-    ram = psutil.virtual_memory()
-    total_ram_raw = round(ram.total / (1024 ** 3))
-    total_ram = f"{total_ram_raw}.00"
-    used_ram = round(ram.used / (1024 ** 3), 2)
-    free_ram = round(ram.available / (1024 ** 3), 2)
-
-    print("""
-=============================
-       SYSTEM INFORMATION
-=============================
-""")
-
-    print(f"OS:           {platform.system()} {platform.release()}")
-    print(f"Version:      {platform.version()}")
-    print(f"Architecture: {platform.machine()}")
-    print(f"Processor:    {cpu_model}")
-    print(f"CPU Cores:    {cores} Cores")
-    print(f"CPU Threads:  {threads} Threads")
-    print(f"GPU:          {gpu_model}")
-    print(f"RAM Memory:   {total_ram} GB total ({used_ram} GB used, {free_ram} GB free)")
-    print(f"Computer:     {platform.node()}")
-
-    print("""
-=============================
-""")
-    input("Press ENTER to go back...")
-
-
-def power_plan():
-    print("""
-Choose a power plan:
-[1] Power Saver
-[2] Balanced
-[3] High Performance
-[4] Ultimate Performance
-[0] Exit""")
-    print(" ")
-    power_plan_input = input("Enter an option: ").strip().lower()
-    if(power_plan_input == "1"):
-        set_power_plan(power_saver_guid, "Power Saver")
-    elif(power_plan_input == "2"):
-        set_power_plan(balanced_guid, "Balanced")
-    elif(power_plan_input == "3"):
-        set_power_plan(high_guid, "High Performance")
-    elif(power_plan_input == "4"):
-        result = subprocess.run(["powercfg", "/list"], capture_output=True, text=True)
-        if ultimate_guid in result.stdout:
-            print("Ultimate Performance plan detected.")
-            set_power_plan(ultimate_guid, "Ultimate Performance")
-        else:
-            print("Ultimate Performance plan is not detected.")
-            time.sleep(2)
-            print("Adding...")
-            time.sleep(3)
-            print("Successful.")
-            time.sleep(3)
-            subprocess.run(["powercfg", "-duplicatescheme", ultimate_guid], check=True)
-            set_power_plan(ultimate_guid, "Ultimate Performance")
-
-def clear():
-    os.system("cls")
-
-
-def disk_defrag():
-    print("""
-HDD or SSD?:
-[1] HDD
-[2] SSD
-""")
-    disk_defrag_input = input("Enter an option: ").lower().strip()
-    c_or_d = input("Enter a letter of your disk (ex. C, D): ").lower().strip()
-    if disk_defrag_input == "1":
-        try:
-            subprocess.run(["defrag", f"{c_or_d}:", "/U", "/V"], check=True)
-            input("Done! Press Enter to return...")
-            return
-        except subprocess.CalledProcessError as e:
-            print(f"\nDefragmentation failed!")
-            print(f"Error code: {e.returncode}")
-            input("\nPress Enter to return...")
-        return
-    elif disk_defrag_input == "2":
-        print("SSDs do not need defragmentation and optimization!")
-        time.sleep(3)
-        input("Press Enter to return...")
-        return
-    else:
-        print("\nInvalid option!")
-        input("Press Enter to return...")
-    
-    
-
-def clear_cache():
-    paths = [
-        os.environ.get('TEMP'),
-        r"C:\Windows\Prefetch",
-        r"C:\Windows\Temp"
-    ]
-
-    for path in paths:
-        if not path or not os.path.exists(path):
-            continue
-
-        print(f"Deleting {path}...")
-        time.sleep(5)
-
-        for item in os.listdir(path):
-            item_path = os.path.join(path, item)
-
-            try:
-                if os.path.isfile(item_path) or os.path.islink(item_path):
-                    os.remove(item_path)
-                elif os.path.isdir(item_path):
-                    shutil.rmtree(item_path)
-            except Exception as e:
-                print(f"[ERROR] Error has occured while deleting {item_path}: {e}")
-    
-    print("Temporary folders successfully deleted.")
-    input("Press Enter to return...")
-
-def install_program(package_id):
-    print(f"Starting installation for {package_id}...")
-    
-    command = ["winget", "install", "-e", "--id", package_id, "--silent", "--accept-source-agreements", "--accept-package-agreements"]
-    
-    try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True)
-        print(f"Successfully installed {package_id}!")
-        if result.stdout:
-            print(f"\nOutput: \n{result.stdout}")
-        if result.stderr:
-            print(f"\nWarnings: \n{result.stderr}")
-
-        input("Press ENTER to get back...")
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to install {package_id}.")
-        print(f"\nReturn Code: \n{e.returncode}")
-        if e.stdout:
-            print(f"\nOutput: \n{e.stdout}")
-        if e.stderr:
-            print(f"\nError Output: \n{e.stderr}")
-
-        input("Press ENTER to get back...")
-
-
-def app_selection():
-    app_selector = """
-Choose an app to install:
-[1] Google Chrome
-[2] Steam
-[3] OBS Studio
-[4] Discord
-[5] Visual Studio Code
-[6] Spotify
-[7] VLC Player
-[8] InkScape
-[9] Audacity
-[10] uTorrent
-[11] Git
-[12] GIMP
-[13] Krita
-[14] WhatsApp
-[15] 7Zip
-[0] Exit
-"""
-    clear()
-    print(app_selector)
-    app_selected = input("Enter an option: ").strip().lower()
-    if app_selected == "0":
-        input("Press ENTER to go back...")
-
-    if app_selected in apps:
-        app_name, package_id = apps[app_selected]
-        print(f"Selected {app_name}")
-        install_program(package_id)
-    else:
-        print("Invalid option.")
-        print("Press ENTER to return...")
-    
 
 main_menu()
