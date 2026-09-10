@@ -22,7 +22,7 @@ tools from a single interface.
 
 winOpt brings several useful Windows maintenance, configuration, and optimization tools together into a single command-line interface.
 
-### ⚡ Windows Power Management
+###  Windows Power Management
 
 Manage Windows power plans directly from winOpt.
 
@@ -31,7 +31,7 @@ Manage Windows power plans directly from winOpt.
 * Useful for choosing between power efficiency and performance-oriented settings
 * Designed to make power-plan management faster and easier
 
-### 💾 Disk Maintenance
+###  Disk Maintenance
 
 Access Windows disk maintenance tools from a simple menu.
 
@@ -40,7 +40,7 @@ Access Windows disk maintenance tools from a simple menu.
 * Supports different operations depending on the selected storage type
 * Provides a convenient interface for Windows' built-in disk utilities
 
-### 🧹 Cache & Temporary File Cleanup
+###  Cache & Temporary File Cleanup
 
 Clean unnecessary temporary data from common Windows locations.
 
@@ -52,7 +52,7 @@ Clean unnecessary temporary data from common Windows locations.
 
 > **Note:** Windows may prevent certain files from being deleted because they are currently being used by the system or another application.
 
-### 🧩 Driver Management
+###  Driver Management
 
 winOpt provides access to driver-related functionality from the main interface.
 
@@ -62,7 +62,7 @@ winOpt provides access to driver-related functionality from the main interface.
 
 > ⚠️ Driver operations can affect system hardware functionality. Use this feature carefully and only install drivers from trusted sources.
 
-### 📦 Software Installation
+###  Software Installation
 
 winOpt aims to make installing commonly used software more convenient.
 
@@ -72,7 +72,7 @@ winOpt aims to make installing commonly used software more convenient.
 
 Additional applications and installation options will be added as the project develops.
 
-### 🖥️ Command-Line Interface
+###  Command-Line Interface
 
 winOpt is built around a straightforward CLI experience.
 
@@ -82,7 +82,7 @@ winOpt is built around a straightforward CLI experience.
 * Designed to be understandable for both beginners and experienced users
 * No unnecessary graphical interface or background services
 
-### 🔐 Administrator Privileges
+###  Administrator Privileges
 
 Some Windows maintenance operations require elevated permissions.
 
@@ -90,13 +90,13 @@ winOpt can request Administrator privileges when necessary so that system-level 
 
 This allows the application to interact with parts of Windows that are normally restricted to standard users.
 
-### 🛠️ Windows-Focused Utilities
+###  Windows-Focused Utilities
 
 Rather than attempting to become an all-purpose system utility, winOpt focuses specifically on Windows.
 
 The project brings together several types of system-management functionality into one place, with the goal of making common maintenance tasks easier to access.
 
-### 🚧 Continuously Expanding
+###  Continuously Expanding
 
 winOpt is still in development, and the feature set will continue to grow.
 
@@ -155,7 +155,7 @@ winOpt is intended for two different types of users.
 
 The project is therefore not intended to be a mysterious "one-click optimizer" that asks users to trust a collection of unknown operations. The source is available so that technically minded users can inspect what the program does.
 
-### 🔍 Transparency over magic
+###  Transparency over magic
 
 There are many Windows optimization tools that make large claims about dramatically increasing performance with a single click.
 
@@ -165,7 +165,7 @@ The project focuses on providing recognizable Windows maintenance and configurat
 
 Performance improvements will naturally depend on the individual computer, Windows configuration, hardware, storage, and workload. **winOpt does not guarantee that every feature will make every computer faster.**
 
-### 🪶 Lightweight and focused
+###  Lightweight and focused
 
 winOpt is designed to remain relatively lightweight and focused on its purpose.
 
@@ -173,7 +173,7 @@ There is no intention to turn the project into a huge collection of unrelated ut
 
 This also means that new features are added with the overall purpose of the project in mind rather than simply adding features for the sake of having a longer feature list.
 
-### 🛠️ Built as an evolving project
+###  Built as an evolving project
 
 winOpt is an actively developing project.
 
@@ -183,7 +183,7 @@ Some planned functionality may not yet be available, and the behavior of certain
 
 Feedback, bug reports, and feature suggestions can help shape future versions of the project.
 
-### 🎯 The long-term goal
+###  The long-term goal
 
 The long-term goal of winOpt is to become a practical Windows maintenance and optimization utility that combines useful system tools into a single, understandable interface.
 
